@@ -23,7 +23,7 @@ def check_passwords(password_of_user):
         else:
             return "Your password is strong."
 
-
+#defing app name and url
 app = Flask(__name__)
 @app.route("/", methods=["GET" , "POST"])
 def main_page():
