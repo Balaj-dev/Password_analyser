@@ -1,0 +1,11 @@
+body{
+    background-color: black;
+    display: flex;
+    flex: flex wrap;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#password{
+    width:200px;
+    height:50px;
+}
