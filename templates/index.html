@@ -2,12 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Password Analyzer</title>
 </head>
+
+
 <body>
     <h1>Password Analyzer</h1>
-    <input type="password" id="password" placeholder="Password">
-    <button id="analyze">Analyze</button>
-<div id="result"></div>
+    <form method="POST" action="">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit" id="button">Analyze</button>
+</form>
+
+
+<div id="result">
+    {% if result %}
+        {{ result }}
+    {% endif %}
+</div>
+<ul><br>
+    <li>Password must be 8 character long</li>
+    <li>Password must contain any number</li>
+    <li>Password must contain any symbol</li>
+</ul>
+
 </body>
 </html>
