@@ -105,12 +105,4 @@ You are free to modify and distribute the project with proper attribution.
 Pull requests and improvements are welcome.
 Please ensure modifications remain aligned with the project's simple and local-only design.
 
----
 
-If you want, I can also create:
-
-- A **professional LICENSE file**  
-- A **GitHub description + tags**  
-- A **badges section** (Python version, license, last commit, etc.)  
-
-Let me know by opening an issue.
