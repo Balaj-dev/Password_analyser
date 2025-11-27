@@ -2,8 +2,8 @@
 
 > A simple web-based password analyzer that checks if a password is too common or easy to brute-force.  
 
-## What it does
 
+## What it does
 Password_analyser helps you **assess whether a given password is weak or risky**. It checks your password against a list of common passwords and provides feedback when a password is found to be too common or easily guessable.  
 
 Use Cases:
@@ -12,12 +12,34 @@ Use Cases:
 - Avoid using common / easy-to-guess passwords.  
 - Integrate as a local web-tool (localhost) for testing passwords before using them for real accounts.  
 
-## How it works (brief technical explanation)
-
-- The core logic lives in `analyzer.py`, which reads a list of common passwords from `common_passwords.txt`.  
-- When you submit a password (via the web interface), the backend checks whether the password matches any in the common list.  
-- Optionally, the script could be extended to include more checks (length, complexity, entropy, dictionary-checks, etc.).  
-- A minimal web interface (using a web framework) allows you to input a password via GET or POST requests, and receive feedback.  
+## How it works (accurate & professional)
+The <b>password analyzer</b> performs a full multi-layer strength evaluation using several checks:
+1. **Length Analysis**
+Ensures the password meets minimum recommended length and flags short or easily guessable passwords.
+2. **Character-Complexity Checks**
+Verifies the presence of:
+Uppercase letters
+Lowercase letters
+Numbers
+Special characters
+And evaluates whether the character distribution is strong or predictable.
+3. **Dictionary & Common-Password Matching**
+Compares the password against a large list of known:
+Common passwords
+Leaked passwords
+Frequently used patterns
+If a match is found, the password is immediately marked as unsafe.
+4. **Pattern Detection**
+Identifies simple sequences such as:
+123456, abcdef, qwerty
+Repeated characters like aaaaaa, 111111
+5. **Overall Strength Scoring**
+All of the above factors are combined to generate a strength evaluation (e.g., Weak, Medium, Strong).
+6. **Localhost Web Interface**
+The tool runs on localhost and exposes endpoints for:
+GET requests → for testing via query parameters
+POST requests → for secure form submission
+The backend returns a structured, human-readable result.
 
 ## Project structure
 
