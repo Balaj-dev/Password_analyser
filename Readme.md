@@ -1,102 +1,116 @@
-# Password_analyser
+# Password Analyzer
 
-> A simple web-based password analyzer that checks if a password is too common or easy to brute-force.  
+A lightweight, local-only Flask web application that evaluates password strength using simple rule-based validation.  
+The analyzer checks password length, character requirements, and verifies whether the password appears in a blacklist of common passwords.
 
+---
 
-## What it does
-Password_analyser helps you **assess whether a given password is weak or risky**. It checks your password against a list of common passwords and provides feedback when a password is found to be too common or easily guessable.  
+## Features
 
-Use Cases:
+### 1. Length Validation
+The password must be at least **8 characters** long.
 
-- Quickly check if a chosen password is “safe enough.”  
-- Avoid using common / easy-to-guess passwords.  
-- Integrate as a local web-tool (localhost) for testing passwords before using them for real accounts.  
+### 2. Complexity Requirements
+The password must contain:
+- At least one digit  
+- At least one symbol (any non-alphanumeric character)
 
-## How it works (accurate & professional)
-The <b>password analyzer</b> performs a full multi-layer strength evaluation using several checks:
-1. **Length Analysis**
-Ensures the password meets minimum recommended length and flags short or easily guessable passwords.
-2. **Character-Complexity Checks**
-Verifies the presence of:
-Uppercase letters
-Lowercase letters
-Numbers
-Special characters
-And evaluates whether the character distribution is strong or predictable.
-3. **Dictionary & Common-Password Matching**
-Compares the password against a large list of known:
-Common passwords
-Leaked passwords
-Frequently used patterns
-If a match is found, the password is immediately marked as unsafe.
-4. **Pattern Detection**
-Identifies simple sequences such as:
-123456, abcdef, qwerty
-Repeated characters like aaaaaa, 111111
-5. **Overall Strength Scoring**
-All of the above factors are combined to generate a strength evaluation (e.g., Weak, Medium, Strong).
-6. **Localhost Web Interface**
-The tool runs on localhost and exposes endpoints for:
-GET requests → for testing via query parameters
-POST requests → for secure form submission
-The backend returns a structured, human-readable result.
+### 3. Common Password Detection
+The application loads a list of common or weak passwords from `common_passwords.txt`.  
+If the submitted password exists in this list, it is classified as insecure.
 
-## Project structure
+### 4. Local Web Interface
+The tool runs on `localhost` using Flask and processes passwords through a POST form submission.
 
+---
+
+## How It Works
+
+The core logic resides in the `check_passwords()` function.
+
+1. Reads `common_passwords.txt` using Python's `csv` module.  
+2. Flattens the CSV row into a list of common passwords.  
+3. Performs the following checks:
+   - Minimum length requirement  
+   - Presence of at least one digit  
+   - Presence of at least one symbol  
+4. Compares the password with the blacklist.  
+5. Returns a clear textual response:
+   - `"Password must be at least 8 characters long."`
+   - `"Password must contain at least one number and one symbol."`
+   - `"Your password 'example' is too common. Consider changing it."`
+   - `"Your password is strong."`
+
+The Flask route `/` renders `index.html`, which accepts user input and displays the validation result.
+
+---
+
+## Project Structure
+
+```commandline
 Password_analyser/
-├── analyzer.py # Main logic for password checking
-├── common_passwords.txt # List of common/password-blacklist entries
+├── analyzer.py # Main Flask application and password checking logic
+├── common_passwords.txt # List of common passwords (CSV format, single row)
+├── templates/
+│ └── index.html # HTML template for the UI
+├── static/ # Static assets (optional)
 ├── requirements.txt # Python dependencies
-├── templates/ # HTML templates for the web interface
-├── static/ # Static assets (CSS/JS) if any
-├── LICENSE # MIT license
-└── README.md # This file
-
-
-## Installation & Running (all platforms: macOS, Linux, Windows)
-
-### Prerequisites
-
-- Python 3.x installed  
-- `pip` (Python package manager) available  
-
-### Setup & Run
-
-```bash
-# 1. Clone the repository  
-git clone https://github.com/Balaj-dev/Password_analyser.git  
-cd Password_analyser  
-
-# 2. Install dependencies  
-pip install -r requirements.txt        # Or 'pip3 install -r requirements.txt'  
-
-# 3. Run the analyzer (web server)  
-python analyzer.py                     # Or 'python3 analyzer.py' depending on your system  
+└── README.md # Project documentation
 ```
 
 
+---
 
-## Accessing via Web (localhost)
-Once the server is running, open your browser and go to:
+## Installation
+
+### Requirements
+- Python 3.8+
+- pip package manager
+
+### Steps (All Platforms)
+
+```bash
+# Clone the repository
+git clone https://github.com/Balaj-dev/Password_analyser.git
+cd Password_analyser
+
+# Optional but recommended: create virtual environment
+python -m venv .venv
+# Activate (Windows)
+.\.venv\Scripts\activate
+# Activate (macOS/Linux)
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python analyzer.py
+```
+## Output via
+ Once running, open your browser and visit:
  http://localhost:5000/
 
-(Port may vary depending on the server config — check output in console when you run it.)
+## Usage
+Submit any password through the form displayed on the main page.
+The application will return one of the predefined validation messages based on the rules implemented.
+Security Notes
+This tool is intended for local use only.
+Do not expose it to the internet without proper security measures.
+Avoid logging or storing raw passwords.
+## License
+This project is licensed under the MIT License.
+You are free to modify and distribute the project with proper attribution.
+## Contributing
+Pull requests and improvements are welcome.
+Please ensure modifications remain aligned with the project's simple and local-only design.
 
-Then you can submit a password via the web-form. The tool will respond with whether the password is common/easily guessable or not.
-(Optional) Using via HTTP API (GET / POST)
-You can also call the analyzer programmatically via HTTP:
-GET — pass the password in query parameters.
-POST — send password data via request body (e.g. form or JSON).
-This allows integration into other tools or scripts.
-Why this project
-Helps enforce good password hygiene.
-Useful for developers, pentesters, sysadmins to quickly check password strength / commonness.
-Easy to run locally — no need to expose users’ passwords to external services.
-License
-This project is released under the MIT License.
-Contributing & Feedback
-
-## FeedBack
-If you want to improve the tool (e.g. add complexity checks, entropy scoring, blacklist updates), feel free to submit issues or pull requests.
-Also welcome: improvements to UI, more robust password-handling, better feedback / reporting.
 ---
+
+If you want, I can also create:
+
+- A **professional LICENSE file**  
+- A **GitHub description + tags**  
+- A **badges section** (Python version, license, last commit, etc.)  
+
+Let me know by opening an issue.
