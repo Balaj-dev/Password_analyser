@@ -6,8 +6,12 @@ def check_passwords(password_of_user):
         reader = csv.reader(file)
         # Flatten the list: csv.reader returns list of rows, we only have one row
         passwords = [p.strip() for p in next(reader) if p.strip()]
+
+        #checking for any digit and symbol in password
         has_digit = any(c.isdigit() for c in password_of_user)
         has_symbol = any(not c.isalnum() for c in password_of_user)
+
+        #getting length of the password
         length_of_password = len(password_of_user)
         # Check length first
         if length_of_password < 8:
